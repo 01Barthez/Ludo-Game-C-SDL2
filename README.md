@@ -1,2 +1,3 @@
-# Ludo-Game-C-SDL2
-Jeu de ludo en utilisant la SDL2 pour l'interface graphic / Travail de l'ecol...
+# Ludo Game
+
+Jeu de ludo en utilisant la SDL2 pour l'interface graphic
