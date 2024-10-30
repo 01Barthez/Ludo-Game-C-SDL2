@@ -10,13 +10,14 @@
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
+#define LIMIT_FPS 16 // 60 FPS
 
     typedef struct {
         SDL_Window *window;
         SDL_Renderer *renderer;
         Player player[4]; // Quatre joueur par défaut pour chaque partie
         int currentPlayer;
-        int isRunning;
+        SDL_bool program_launched;
         Board board;
         Dice dice;
         UI ui;
