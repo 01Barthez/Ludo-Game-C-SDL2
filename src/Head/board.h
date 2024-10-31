@@ -9,6 +9,8 @@
 #define HOME_SIZE 6 // Taille de la maison d'un player par coté
 #define FINISH_SIZE 15 // Taill de la eone d'arrivée par coté
 #define TOTAL_CELLS 52 // Nombre total de case sur le parcours
+#define BOARD_WIDTH (BOARD_SIZE * CELL_SIZE)
+#define BOARD_HEIGHT (BOARD_SIZE * CELL_SIZE)
 
     typedef enum {
         CELL_EMPTY, // case Vide
@@ -24,7 +26,7 @@
     typedef struct {
         CellType type;
         SDL_Rect rect;
-        int occuped_by;
+        int occupied_by;
     } Cell;
 
     typedef struct {
@@ -35,15 +37,15 @@
     } Board;
     
     // Fonction d'initialisation
-    Board *createBoard(Board *board);
+    Board *createBoard(SDL_Renderer *renderer);
     void initialiseBoardCells(Board *board);
     void initialisePath(Board *board);
     void initialiseHomePos(Board *board);
     void initialiseFinishPos(Board *board);
 
     // Fonction de rendu
-    void renderBoard(Board *board, SDL_Renderer *renderer); // Afficher le tableau de jeu;
-    void renderCell(Cell *cell, SDL_Renderer *renderer);
+    void renderBoard(SDL_Renderer *renderer, Board *board, int offsetX, int offsetY);// Afficher le tableau de jeu;
+    void renderCell(SDL_Renderer *renderer, Cell *cell);
 
     // Fonction de manipulation
     int isMoveValid(Board* board, int player_id, int current_pos, int dice_roll);

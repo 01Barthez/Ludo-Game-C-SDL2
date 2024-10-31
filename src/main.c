@@ -6,7 +6,7 @@ int main(int argc, char *argv[]) {
     // Initialiser la SDL
     init_SDL();
     
-    Game game;
+    Game game; //? declarer une nouvelle partie de jeu
 
     // Initialiser la partie de jeu
     initialiseGame(&game);

@@ -9,14 +9,20 @@ int initialiseGame(Game *game) {
 
     game->renderer = SDL_CreateRenderer(game->window, -1, SDL_RENDERER_ACCELERATED);
     if(!game->renderer)
-        SDL_ExitWithError("Failed to create window !\n");
+        SDL_ExitWithError("Failed to create render !\n");
 
+    // Initialise dice
     initialiseDice(&game->dice);
-
+    
+    game->board = createBoard(game->renderer);
+    if(!game->board)
+        SDL_ExitWithError("Failed to create Board !\n");
+    
     game->program_launched = SDL_TRUE;
 };
 
 void cleanUpGame(Game *game) {
+    destroyBoard(game->board);
     SDL_DestroyRenderer(game->renderer);
     SDL_DestroyWindow(game->window);
 };
@@ -39,8 +45,11 @@ void renderGame(Game *game){
         SDL_ExitWithError("Failed set render color !\n");
     SDL_RenderClear(game->renderer);
     
+    int boardOffsetX = (WINDOW_WIDTH - BOARD_WIDTH) / 2;
+    int boardOffsetY = (WINDOW_HEIGHT - BOARD_HEIGHT) / 2;
+
     // Différents affichages
-    renderBoard(&game->board, game->renderer); // Pour afficher le tableau;
+    renderBoard(game->renderer, game->board, boardOffsetX, boardOffsetY); // Pour afficher le tableau de jeu;
 
     // Presenter les differents rendu
     SDL_RenderPresent(game->renderer);
@@ -49,43 +58,43 @@ void renderGame(Game *game){
 void handleEvents(Game *game){
     SDL_Event event;
 
-  while(SDL_PollEvent(&event)){
-            switch(event.type){
-                case SDL_KEYDOWN: 
-                    switch(event.key.keysym.sym){
-                        case SDLK_SPACE:
-                            // Action pour lancer une nouvelle partie si on tape sur la touche entrer
-                            printf("L'utilisateur a appuyé sur espace !\n");
-                        continue;
+    while(SDL_PollEvent(&event)){
+        switch(event.type){
+            case SDL_KEYDOWN: 
+                switch(event.key.keysym.sym){
+                    case SDLK_SPACE:
+                        // Action pour lancer une nouvelle partie si on tape sur la touche entrer
+                        printf("L'utilisateur a appuyé sur espace !\n");
+                    continue;
 
-                        default: 
-                        continue;
-                    }
-                break;
+                    default: 
+                    continue;
+                }
+            break;
 
-                case SDL_MOUSEBUTTONDOWN: 
-                    // Gerer les differents cas en fonction de ou on a clické
-                    printf("l'utilisateur a clické\n");
-                break;
+            case SDL_MOUSEBUTTONDOWN: 
+                // Gerer les differents cas en fonction de ou on a clické
+                printf("l'utilisateur a clické\n");
+            break;
 
-                case SDL_WINDOWEVENT: 
-                    switch(event.window.event) {
-                        case SDL_WINDOWEVENT_ENTER:
-                            // Action pour changer le curseur de la souris lorsqu'on entre dans la fenetre
-                            printf("L'utilisateur es entrer dans la fenetre\n");
-                        continue;
+            case SDL_WINDOWEVENT: 
+                switch(event.window.event) {
+                    case SDL_WINDOWEVENT_ENTER:
+                        // Action pour changer le curseur de la souris lorsqu'on entre dans la fenetre
+                        printf("L'utilisateur es entrer dans la fenetre\n");
+                    continue;
 
-                        default: 
-                        continue;
-                    }
-                break;
+                    default: 
+                    continue;
+                }
+            break;
 
-                case SDL_QUIT: 
-                    game->program_launched = SDL_FALSE;
-                break;
+            case SDL_QUIT: 
+                game->program_launched = SDL_FALSE;
+            break;
 
-                default: 
-                break;
-            }
+            default: 
+            break;
         }
+    }
 }
