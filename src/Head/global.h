@@ -1,6 +1,13 @@
 #ifndef GLOBAL_H_
 #define GLOBAL_H_
-    
+       
+    typedef enum {
+        VERT = 1, 
+        ROUGE,
+        JAUNE,
+        BLEU
+    } Color;
+
     typedef struct {
         int x;
         int y;

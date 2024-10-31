@@ -1,19 +1,7 @@
 #include "Head/board.h"
 #include "Head/global.h"
 #include "Head/game.h"
-
-const SDL_Color PLAYER_COLORS[4] = {
-    {255, 0, 0, 255},    // Rouge
-    {0, 0, 255, 255},    // Bleu
-    {255, 255, 0, 255},  // Jaune
-    {0, 255, 0, 255}     // Vert
-};
-
-const int windowCenterX = WINDOW_WIDTH / 2;
-const int windowCenterY = WINDOW_HEIGHT / 2;
-
-int boardOffsetX = windowCenterX - (BOARD_WIDTH / 2);
-int boardOffsetY = windowCenterY - (BOARD_HEIGHT / 2);
+#include <stdio.h>
 
 Board *createBoard(SDL_Renderer *renderer) {
     Board *board = calloc(1, sizeof(Board));
@@ -31,7 +19,7 @@ void initialiseBoardCells(Board* board) {
     // Initialise chaque cellule du tableau
     for (int y = 0; y < BOARD_SIZE; y++) {
         for (int x = 0; x < BOARD_SIZE; x++) {
-            board->grid[y][x].type = CELL_EMPTY;
+            board->grid[y][x].type = CELL_WHITE;
             board->grid[y][x].rect.x = x * CELL_SIZE;
             board->grid[y][x].rect.y = y * CELL_SIZE;
             board->grid[y][x].rect.w = CELL_SIZE;
@@ -95,7 +83,7 @@ void renderBoard(SDL_Renderer *renderer, Board *board, int offsetX, int offsetY)
     }
 
     // Dessine la grille
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
     for (int i = 0; i <= BOARD_SIZE; i++) {
         // Lignes verticales
         SDL_RenderDrawLine(renderer, 
@@ -109,7 +97,6 @@ void renderBoard(SDL_Renderer *renderer, Board *board, int offsetX, int offsetY)
         );
     }
 };
-
 
 void renderCell(SDL_Renderer *renderer, Cell *cell) {
     switch (cell->type) {
@@ -133,14 +120,9 @@ void renderCell(SDL_Renderer *renderer, Cell *cell) {
             SDL_SetRenderDrawColor(renderer, 220, 220, 220, SDL_ALPHA_OPAQUE);
         break;
 
-        case CELL_SAFE:
-            SDL_SetRenderDrawColor(renderer, 240, 240, 240, SDL_ALPHA_OPAQUE);
-        break;
-
         default:
             SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
         break;
-
     }
     SDL_RenderFillRect(renderer, &cell->rect);
 }

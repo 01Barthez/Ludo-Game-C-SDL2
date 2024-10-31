@@ -6,21 +6,19 @@
 
 #define CELL_SIZE 40 // Taille d'une case en pixel
 #define BOARD_SIZE 15 // Nombre de case par coté
+#define BOARD_WIDTH (BOARD_SIZE * CELL_SIZE) // Largeur de la surface du ludo
+#define BOARD_HEIGHT (BOARD_SIZE * CELL_SIZE) // Hauteur de la surface du ludo
 #define HOME_SIZE 6 // Taille de la maison d'un player par coté
-#define FINISH_SIZE 15 // Taill de la eone d'arrivée par coté
-#define TOTAL_CELLS 52 // Nombre total de case sur le parcours
-#define BOARD_WIDTH (BOARD_SIZE * CELL_SIZE)
-#define BOARD_HEIGHT (BOARD_SIZE * CELL_SIZE)
+#define FINISH_SIZE 15 // Taill de la case d'arrivée par coté
+#define TOTAL_CELLS 68 // Nombre total de case sur le parcours
 
     typedef enum {
-        CELL_EMPTY, // case Vide
-        CELL_PATH, // Case du chemin
-        CELL_HOME_RED, // Maison du joueur rouge
+        CELL_HOME_RED = 1, // Maison du joueur rouge
         CELL_HOME_BLUE, // Maison du joueur bleu
         CELL_HOME_GREEN, // Maison du joueur vert
         CELL_HOME_YELLOW, // Maison du joueur yellow
         CELL_FINISH, // zone d'arrivé
-        CELL_SAFE, // case ou on ne peut etre mangé
+        CELL_WHITE, // case ou on ne peut etre mangé
     } CellType;
 
     typedef struct {
@@ -31,13 +29,20 @@
 
     typedef struct {
         Cell grid[BOARD_SIZE][BOARD_SIZE];
-        SDL_Point path[TOTAL_CELLS];
-        SDL_Point startPoint[4][4];
-        SDL_Point finishPath[4][4];
+        
+        /**
+         * On va ignorer cete façcon de proceder dans un premier temps...
+         * 
+         * */ 
+        // SDL_Point path[TOTAL_CELLS];
+        // SDL_Point startPoint[4][4];
+        // SDL_Point finishPath[4][4];
     } Board;
     
     // Fonction d'initialisation
     Board *createBoard(SDL_Renderer *renderer);
+
+    // Sous fonctions d'initialisations d'un tableau
     void initialiseBoardCells(Board *board);
     void initialisePath(Board *board);
     void initialiseHomePos(Board *board);

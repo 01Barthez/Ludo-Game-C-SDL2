@@ -2,8 +2,8 @@
 #include "Head/board.h"
 #include "Head/dice.h"
 
-int initialiseGame(Game *game) {
-    game->window = SDL_CreateWindow("Ludo Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
+void initialiseGame(Game *game) {
+    game->window = SDL_CreateWindow("Play Ludo Game With Barthez :-)", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
     if(!game->window) 
          SDL_ExitWithError("Failed to create window !\n");
 
@@ -41,12 +41,8 @@ void updateGame(Game *game) {
 };
 
 void renderGame(Game *game){
-    if(SDL_SetRenderDrawColor(game->renderer, 255, 255, 255, SDL_ALPHA_OPAQUE) != 0)
-        SDL_ExitWithError("Failed set render color !\n");
-    SDL_RenderClear(game->renderer);
-    
     int boardOffsetX = (WINDOW_WIDTH - BOARD_WIDTH) / 2;
-    int boardOffsetY = (WINDOW_HEIGHT - BOARD_HEIGHT) / 2;
+    int boardOffsetY = 10;
 
     // Différents affichages
     renderBoard(game->renderer, game->board, boardOffsetX, boardOffsetY); // Pour afficher le tableau de jeu;
