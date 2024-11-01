@@ -60,7 +60,6 @@ void handleEvents(Game *game){
                 switch(event.key.keysym.sym){
                     case SDLK_SPACE:
                         // Action pour lancer une nouvelle partie si on tape sur la touche entrer
-                        printf("L'utilisateur a appuyé sur espace !\n");
                     continue;
 
                     default: 
@@ -70,14 +69,12 @@ void handleEvents(Game *game){
 
             case SDL_MOUSEBUTTONDOWN: 
                 // Gerer les differents cas en fonction de ou on a clické
-                printf("l'utilisateur a clické\n");
             break;
 
             case SDL_WINDOWEVENT: 
                 switch(event.window.event) {
                     case SDL_WINDOWEVENT_ENTER:
                         // Action pour changer le curseur de la souris lorsqu'on entre dans la fenetre
-                        printf("L'utilisateur es entrer dans la fenetre\n");
                     continue;
 
                     default: 

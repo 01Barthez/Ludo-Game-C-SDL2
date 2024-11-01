@@ -29,14 +29,6 @@
 
     typedef struct {
         Cell grid[BOARD_SIZE][BOARD_SIZE];
-        
-        /**
-         * On va ignorer cete façcon de proceder dans un premier temps...
-         * 
-         * */ 
-        // SDL_Point path[TOTAL_CELLS];
-        // SDL_Point startPoint[4][4];
-        // SDL_Point finishPath[4][4];
     } Board;
     
     // Fonction d'initialisation
