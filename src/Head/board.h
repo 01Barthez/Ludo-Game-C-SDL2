@@ -39,7 +39,8 @@
     void initialisePath(Board *board);
     void initialiseHomePos(Board *board);
     void initialiseFinishPos(Board *board);
-
+    void renderHomeCircleAndSquares(SDL_Renderer *renderer, int homeX, int homeY, Uint8 r, Uint8 g, Uint8 b);
+    
     // Fonction de rendu
     void renderBoard(SDL_Renderer *renderer, Board *board, int offsetX, int offsetY);// Afficher le tableau de jeu;
     void renderCell(SDL_Renderer *renderer, Cell *cell);
